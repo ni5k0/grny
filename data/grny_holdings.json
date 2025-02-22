@@ -1,40 +1,215 @@
 {
   "holdings": [
-    {"ticker": "TSLA", "name": "Tesla, Inc. Common Stock", "Sector": "Consumer Discretionary", "date_added": "2024-11-20"},
-    {"ticker": "AXON", "name": "Axon Enterprise, Inc. Common Stock", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "NFLX", "name": "NetFlix Inc", "Sector": "Communication Services", "date_added": "2024-11-20"},
-    {"ticker": "AAPL", "name": "Apple Inc.", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "AMZN", "name": "Amazon.Com Inc", "Sector": "Consumer Discretionary", "date_added": "2024-11-20"},
-    {"ticker": "CRWD", "name": "CrowdStrike Holdings, Inc. Class A Common Stock", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "COST", "name": "Costco Wholesale Corp", "Sector": "Consumer Staples", "date_added": "2024-11-20"},
-    {"ticker": "GOOGL", "name": "Alphabet Inc. Class A Common Stock", "Sector": "Communication Services", "date_added": "2024-11-20"},
-    {"ticker": "META", "name": "Meta Platforms, Inc. Class A Common Stock", "Sector": "Communication Services", "date_added": "2024-11-20"},
-    {"ticker": "GRMN", "name": "Garmin Ltd", "Sector": "Consumer Discretionary", "date_added": "2024-11-20"},
-    {"ticker": "MSFT", "name": "Microsoft Corp", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "JCI", "name": "Johnson Controls International plc", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "CBRE", "name": "CBRE GROUP, INC.", "Sector": "Real Estate", "date_added": "2024-11-20"},
-    {"ticker": "BK", "name": "Bank of New York Mellon Corporation", "Sector": "Financials", "date_added": "2024-11-20"},
-    {"ticker": "EMR", "name": "Emerson Electric Co.", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "AXP", "name": "American Express Company", "Sector": "Financials", "date_added": "2024-11-20"},
-    {"ticker": "SPGI", "name": "S&P Global Inc.", "Sector": "Financials", "date_added": "2024-11-20"},
-    {"ticker": "CDNS", "name": "Cadence Design Systems", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "PANW", "name": "Palo Alto Networks, Inc. Common Stock", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "PWR", "name": "Quanta Services, Inc.", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "IR", "name": "Ingersoll Rand Inc. Common Stock", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "ETN", "name": "Eaton Corporation, plc Ordinary Shares", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "JPM", "name": "JPMorgan Chase & Co.", "Sector": "Financials", "date_added": "2024-11-20"},
-    {"ticker": "ORCL", "name": "Oracle Corp", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "ISRG", "name": "Intuitive Surgical Inc.", "Sector": "Health Care", "date_added": "2024-11-20"},
-    {"ticker": "GS", "name": "Goldman Sachs Group Inc.", "Sector": "Financials", "date_added": "2024-11-20"},
-    {"ticker": "ANET", "name": "Arista Networks", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "PGR", "name": "Progressive Corporation", "Sector": "Financials", "date_added": "2024-11-20"},
-    {"ticker": "NVDA", "name": "Nvidia Corp", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "CAT", "name": "Caterpillar Inc.", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "GWW", "name": "W.W. Grainger, Inc.", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "TDG", "name": "TransDigm Group Incorporated", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "AMD", "name": "Advanced Micro Devices", "Sector": "Information Technology", "date_added": "2024-11-20"},
-    {"ticker": "LDOS", "name": "Leidos Holdings, Inc.", "Sector": "Industrials", "date_added": "2024-11-20"},
-    {"ticker": "BKNG", "name": "Booking Holdings Inc. Common Stock", "Sector": "Consumer Discretionary", "date_added": "2024-11-20"}
+    {
+      "ticker": "AAPL",
+      "name": "Apple Inc.",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon.Com Inc",
+      "Sector": "Consumer Discretionary",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "ANET",
+      "name": "Arista Networks",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "AXON",
+      "name": "Axon Enterprise, Inc. Common Stock",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "AXP",
+      "name": "American Express Company",
+      "Sector": "Financials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "BK",
+      "name": "Bank of New York Mellon Corporation",
+      "Sector": "Financials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "BKNG",
+      "name": "Booking Holdings Inc. Common Stock",
+      "Sector": "Consumer Discretionary",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "CAT",
+      "name": "Caterpillar Inc.",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "CBRE",
+      "name": "CBRE GROUP, INC.",
+      "Sector": "Real Estate",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "CDNS",
+      "name": "Cadence Design Systems",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "COST",
+      "name": "Costco Wholesale Corp",
+      "Sector": "Consumer Staples",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "CRWD",
+      "name": "CrowdStrike Holdings, Inc. Class A Common Stock",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "EMR",
+      "name": "Emerson Electric Co.",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "ETN",
+      "name": "Eaton Corporation, plc Ordinary Shares",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet Inc. Class A Common Stock",
+      "Sector": "Communication Services",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "GRMN",
+      "name": "Garmin Ltd",
+      "Sector": "Consumer Discretionary",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "GS",
+      "name": "Goldman Sachs Group Inc.",
+      "Sector": "Financials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "GWW",
+      "name": "W.W. Grainger, Inc.",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "IR",
+      "name": "Ingersoll Rand Inc. Common Stock",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "ISRG",
+      "name": "Intuitive Surgical Inc.",
+      "Sector": "Health Care",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "JCI",
+      "name": "Johnson Controls International plc",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "Sector": "Financials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "LDOS",
+      "name": "Leidos Holdings, Inc.",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "META",
+      "name": "Meta Platforms, Inc. Class A Common Stock",
+      "Sector": "Communication Services",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft Corp",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "NFLX",
+      "name": "NetFlix Inc",
+      "Sector": "Communication Services",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "NVDA",
+      "name": "Nvidia Corp",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle Corp",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "PANW",
+      "name": "Palo Alto Networks, Inc. Common Stock",
+      "Sector": "Information Technology",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "PGR",
+      "name": "Progressive Corporation",
+      "Sector": "Financials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "PWR",
+      "name": "Quanta Services, Inc.",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "SPGI",
+      "name": "S&P Global Inc.",
+      "Sector": "Financials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "TDG",
+      "name": "TransDigm Group Incorporated",
+      "Sector": "Industrials",
+      "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla, Inc. Common Stock",
+      "Sector": "Consumer Discretionary",
+      "date_added": "2024-11-20"
+    }
   ],
   "removed": [],
   "last_updated": "2025-02-22"
