@@ -7,6 +7,18 @@
       "date_added": "2024-11-20"
     },
     {
+      "ticker": "ABT",
+      "name": "Abbott Laboratories",
+      "Sector": "Health Care",
+      "date_added": "2025-02-05"
+    },
+    {
+      "ticker": "ACN",
+      "name": "Accenture PLC",
+      "Sector": "Information Technology",
+      "date_added": "2025-02-05"
+    },
+    {
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
       "Sector": "Information Technology",
@@ -43,21 +55,9 @@
       "date_added": "2024-11-20"
     },
     {
-      "ticker": "BKNG",
-      "name": "Booking Holdings Inc. Common Stock",
-      "Sector": "Consumer Discretionary",
-      "date_added": "2024-11-20"
-    },
-    {
       "ticker": "CAT",
       "name": "Caterpillar Inc.",
       "Sector": "Industrials",
-      "date_added": "2024-11-20"
-    },
-    {
-      "ticker": "CBRE",
-      "name": "CBRE GROUP, INC.",
-      "Sector": "Real Estate",
       "date_added": "2024-11-20"
     },
     {
@@ -91,6 +91,12 @@
       "date_added": "2024-11-20"
     },
     {
+      "ticker": "GEV",
+      "name": "GE Vernova Inc.",
+      "Sector": "Industrials",
+      "date_added": "2025-02-05"
+    },
+    {
       "ticker": "GOOGL",
       "name": "Alphabet Inc. Class A Common Stock",
       "Sector": "Communication Services",
@@ -109,39 +115,15 @@
       "date_added": "2024-11-20"
     },
     {
-      "ticker": "GWW",
-      "name": "W.W. Grainger, Inc.",
-      "Sector": "Industrials",
-      "date_added": "2024-11-20"
-    },
-    {
-      "ticker": "IR",
-      "name": "Ingersoll Rand Inc. Common Stock",
-      "Sector": "Industrials",
-      "date_added": "2024-11-20"
-    },
-    {
       "ticker": "ISRG",
       "name": "Intuitive Surgical Inc.",
       "Sector": "Health Care",
       "date_added": "2024-11-20"
     },
     {
-      "ticker": "JCI",
-      "name": "Johnson Controls International plc",
-      "Sector": "Industrials",
-      "date_added": "2024-11-20"
-    },
-    {
       "ticker": "JPM",
       "name": "JPMorgan Chase & Co.",
       "Sector": "Financials",
-      "date_added": "2024-11-20"
-    },
-    {
-      "ticker": "LDOS",
-      "name": "Leidos Holdings, Inc.",
-      "Sector": "Industrials",
       "date_added": "2024-11-20"
     },
     {
@@ -155,6 +137,12 @@
       "name": "Microsoft Corp",
       "Sector": "Information Technology",
       "date_added": "2024-11-20"
+    },
+    {
+      "ticker": "MSTR",
+      "name": "MicroStrategy Inc",
+      "Sector": "Information Technology",
+      "date_added": "2025-02-05"
     },
     {
       "ticker": "NFLX",
@@ -187,21 +175,33 @@
       "date_added": "2024-11-20"
     },
     {
+      "ticker": "PLTR",
+      "name": "Palantir Technologies Inc. Class A Common Stock",
+      "Sector": "Information Technology",
+      "date_added": "2025-02-05"
+    },
+    {
       "ticker": "PWR",
       "name": "Quanta Services, Inc.",
       "Sector": "Industrials",
       "date_added": "2024-11-20"
     },
     {
+      "ticker": "PYPL",
+      "name": "PayPal Holdings, Inc. Common Stock",
+      "Sector": "Information Technology",
+      "date_added": "2025-02-05"
+    },
+    {
+      "ticker": "QCOM",
+      "name": "Qualcomm Inc",
+      "Sector": "Information Technology",
+      "date_added": "2025-02-05"
+    },
+    {
       "ticker": "SPGI",
       "name": "S&P Global Inc.",
       "Sector": "Financials",
-      "date_added": "2024-11-20"
-    },
-    {
-      "ticker": "TDG",
-      "name": "TransDigm Group Incorporated",
-      "Sector": "Industrials",
       "date_added": "2024-11-20"
     },
     {
@@ -211,6 +211,49 @@
       "date_added": "2024-11-20"
     }
   ],
-  "removed": [],
+  "removed": [
+    {
+      "ticker": "BKNG",
+      "name": "Booking Holdings Inc. Common Stock",
+      "Sector": "Consumer Discretionary",
+      "date_removed": "2025-02-05"
+    },
+    {
+      "ticker": "CBRE",
+      "name": "CBRE GROUP, INC.",
+      "Sector": "Real Estate",
+      "date_removed": "2025-02-05"
+    },
+    {
+      "ticker": "GWW",
+      "name": "W.W. Grainger, Inc.",
+      "Sector": "Industrials",
+      "date_removed": "2025-02-05"
+    },
+    {
+      "ticker": "IR",
+      "name": "Ingersoll Rand Inc. Common Stock",
+      "Sector": "Industrials",
+      "date_removed": "2025-02-05"
+    },
+    {
+      "ticker": "JCI",
+      "name": "Johnson Controls International plc",
+      "Sector": "Industrials",
+      "date_removed": "2025-02-05"
+    },
+    {
+      "ticker": "LDOS",
+      "name": "Leidos Holdings, Inc.",
+      "Sector": "Industrials",
+      "date_removed": "2025-02-05"
+    },
+    {
+      "ticker": "TDG",
+      "name": "TransDigm Group Incorporated",
+      "Sector": "Industrials",
+      "date_removed": "2025-02-05"
+    }
+  ],
   "last_updated": "2025-02-22"
 }
