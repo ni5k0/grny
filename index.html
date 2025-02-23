@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three.js Time Series Cubes</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script defer>
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Data
+        const data = {
+            "holdings": [
+                {"ticker": "AAPL", "date_added": "2024-11-20"},
+                {"ticker": "ABT", "date_added": "2025-02-05"},
+                {"ticker": "ACN", "date_added": "2025-02-05"},
+                {"ticker": "AMD", "date_added": "2024-11-20"},
+                {"ticker": "AMZN", "date_added": "2024-11-20"},
+                {"ticker": "ANET", "date_added": "2024-11-20"},
+                {"ticker": "AXON", "date_added": "2024-11-20"},
+                {"ticker": "AXP", "date_added": "2024-11-20"},
+                {"ticker": "BK", "date_added": "2024-11-20"},
+                {"ticker": "CAT", "date_added": "2024-11-20"},
+                {"ticker": "CDNS", "date_added": "2024-11-20"},
+                {"ticker": "COST", "date_added": "2024-11-20"},
+                {"ticker": "CRWD", "date_added": "2024-11-20"},
+                {"ticker": "EMR", "date_added": "2024-11-20"},
+                {"ticker": "ETN", "date_added": "2024-11-20"},
+                {"ticker": "GEV", "date_added": "2025-02-05"},
+                {"ticker": "GOOGL", "date_added": "2024-11-20"},
+                {"ticker": "GRMN", "date_added": "2024-11-20"},
+                {"ticker": "GS", "date_added": "2024-11-20"},
+                {"ticker": "ISRG", "date_added": "2024-11-20"},
+                {"ticker": "JPM", "date_added": "2024-11-20"},
+                {"ticker": "META", "date_added": "2024-11-20"},
+                {"ticker": "MSFT", "date_added": "2024-11-20"},
+                {"ticker": "MSTR", "date_added": "2025-02-05"},
+                {"ticker": "NFLX", "date_added": "2024-11-20"},
+                {"ticker": "NVDA", "date_added": "2024-11-20"},
+                {"ticker": "ORCL", "date_added": "2024-11-20"},
+                {"ticker": "PANW", "date_added": "2024-11-20"},
+                {"ticker": "PGR", "date_added": "2024-11-20"},
+                {"ticker": "PLTR", "date_added": "2025-02-05"},
+                {"ticker": "PWR", "date_added": "2024-11-20"},
+                {"ticker": "PYPL", "date_added": "2025-02-05"},
+                {"ticker": "QCOM", "date_added": "2025-02-05"},
+                {"ticker": "SPGI", "date_added": "2024-11-20"},
+                {"ticker": "TSLA", "date_added": "2024-11-20"}
+            ],
+            "removed": [
+                {"ticker": "BKNG", "date_removed": "2025-02-05"},
+                {"ticker": "CBRE", "date_removed": "2025-02-05"},
+                {"ticker": "GWW", "date_removed": "2025-02-05"},
+                {"ticker": "IR", "date_removed": "2025-02-05"},
+                {"ticker": "JCI", "date_removed": "2025-02-05"},
+                {"ticker": "LDOS", "date_removed": "2025-02-05"},
+                {"ticker": "TDG", "date_removed": "2025-02-05"}
+            ]
+        };
+
+        // Function to create canvas texture with text
+        function createTextTexture(text, bgColor) {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = 512; // Higher resolution
+            canvas.height = 512;
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'black';
+            ctx.font = 'bold 80px Arial'; // Adjusted to fit with newline
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            const [line1, line2] = text.split('\n');
+            ctx.fillText(line1, canvas.width / 2, canvas.height / 2 - 40); // Ticker
+            ctx.fillText(line2, canvas.width / 2, canvas.height / 2 + 40); // Date
+            return new THREE.CanvasTexture(canvas);
+        }
+
+        // Create cubes
+        const cubes = [];
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let hoveredCube = null;
+
+        // Green row (2025-02-05 holdings)
+        const greenHoldings = data.holdings.filter(h => h.date_added === "2025-02-05");
+        greenHoldings.forEach((holding, i) => {
+            const x = i * 2 - (greenHoldings.length - 1);
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const text = `${holding.ticker}\n${holding.date_added}`;
+            const texture = createTextTexture(text, '#00FF00');
+            const material = new THREE.MeshBasicMaterial({ map: texture });
+            const materials = [material, material, material, material, material, material];
+            const cube = new THREE.Mesh(geometry, materials);
+            cube.position.set(x, 4, 0); // Top row
+            scene.add(cube);
+            cubes.push({ mesh: cube, isHovered: false });
+        });
+
+        // Yellow row (2024-11-20 holdings)
+        const yellowHoldings = data.holdings.filter(h => h.date_added === "2024-11-20");
+        yellowHoldings.forEach((holding, i) => {
+            const x = i * 2 - (yellowHoldings.length - 1);
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const text = `${holding.ticker}\n${holding.date_added}`;
+            const texture = createTextTexture(text, '#FFFF00');
+            const material = new THREE.MeshBasicMaterial({ map: texture });
+            const materials = [material, material, material, material, material, material];
+            const cube = new THREE.Mesh(geometry, materials);
+            cube.position.set(x, 0, 0); // Middle row
+            scene.add(cube);
+            cubes.push({ mesh: cube, isHovered: false });
+        });
+
+        // Red row (removed)
+        data.removed.forEach((removed, i) => {
+            const x = i * 2 - (data.removed.length - 1);
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const text = `${removed.ticker}\n${removed.date_removed}`;
+            const texture = createTextTexture(text, '#FF0000');
+            const material = new THREE.MeshBasicMaterial({ map: texture });
+            const materials = [material, material, material, material, material, material];
+            const cube = new THREE.Mesh(geometry, materials);
+            cube.position.set(x, -4, 0); // Bottom row
+            scene.add(cube);
+            cubes.push({ mesh: cube, isHovered: false });
+        });
+
+        // Position camera
+        camera.position.set(0, 5, 20);
+        camera.lookAt(0, 0, 0);
+
+        // Zoom functionality
+        window.addEventListener('wheel', (event) => {
+            const zoomSpeed = 0.1;
+            camera.position.z += event.deltaY * zoomSpeed;
+            camera.position.z = Math.max(5, Math.min(50, camera.position.z));
+        });
+
+        // Mouse hover detection
+        document.addEventListener('mousemove', (event) => {
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(cubes.map(c => c.mesh));
+            cubes.forEach(cube => cube.isHovered = false); // Reset all
+            if (intersects.length > 0) {
+                const hovered = cubes.find(c => c.mesh === intersects[0].object);
+                if (hovered) hovered.isHovered = true;
+                hoveredCube = hovered;
+            } else {
+                hoveredCube = null;
+            }
+        });
+
+        // Animation loop (rotation on hover)
+        function animate() {
+            requestAnimationFrame(animate);
+            cubes.forEach(cube => {
+                if (cube.isHovered) {
+                    cube.mesh.rotation.x += 0.02;
+                    cube.mesh.rotation.y += 0.02;
+                }
+            });
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+    </script>
+</body>
+</html>
