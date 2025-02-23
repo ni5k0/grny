@@ -3,21 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js Time Series Cubes</title>
+    <title>Three.js Time Series Cubes with Orbit Controls</title>
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
     </style>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-    <script defer>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
         // Scene setup
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
+
+        // OrbitControls setup
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.screenSpacePanning = false;
+        controls.minDistance = 5;
+        controls.maxDistance = 50;
 
         // Data
         const data = {
@@ -73,17 +91,17 @@
         function createTextTexture(text, bgColor) {
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = 512; // Higher resolution
+            canvas.width = 512;
             canvas.height = 512;
             ctx.fillStyle = bgColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = 'black';
-            ctx.font = 'bold 80px Arial'; // Adjusted to fit with newline
+            ctx.font = 'bold 80px Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             const [line1, line2] = text.split('\n');
-            ctx.fillText(line1, canvas.width / 2, canvas.height / 2 - 40); // Ticker
-            ctx.fillText(line2, canvas.width / 2, canvas.height / 2 + 40); // Date
+            ctx.fillText(line1, canvas.width / 2, canvas.height / 2 - 40);
+            ctx.fillText(line2, canvas.width / 2, canvas.height / 2 + 40);
             return new THREE.CanvasTexture(canvas);
         }
 
@@ -103,7 +121,7 @@
             const material = new THREE.MeshBasicMaterial({ map: texture });
             const materials = [material, material, material, material, material, material];
             const cube = new THREE.Mesh(geometry, materials);
-            cube.position.set(x, 4, 0); // Top row
+            cube.position.set(x, 4, 0);
             scene.add(cube);
             cubes.push({ mesh: cube, isHovered: false });
         });
@@ -118,7 +136,7 @@
             const material = new THREE.MeshBasicMaterial({ map: texture });
             const materials = [material, material, material, material, material, material];
             const cube = new THREE.Mesh(geometry, materials);
-            cube.position.set(x, 0, 0); // Middle row
+            cube.position.set(x, 0, 0);
             scene.add(cube);
             cubes.push({ mesh: cube, isHovered: false });
         });
@@ -132,21 +150,13 @@
             const material = new THREE.MeshBasicMaterial({ map: texture });
             const materials = [material, material, material, material, material, material];
             const cube = new THREE.Mesh(geometry, materials);
-            cube.position.set(x, -4, 0); // Bottom row
+            cube.position.set(x, -4, 0);
             scene.add(cube);
             cubes.push({ mesh: cube, isHovered: false });
         });
 
         // Position camera
         camera.position.set(0, 5, 20);
-        camera.lookAt(0, 0, 0);
-
-        // Zoom functionality
-        window.addEventListener('wheel', (event) => {
-            const zoomSpeed = 0.1;
-            camera.position.z += event.deltaY * zoomSpeed;
-            camera.position.z = Math.max(5, Math.min(50, camera.position.z));
-        });
 
         // Mouse hover detection
         document.addEventListener('mousemove', (event) => {
@@ -154,7 +164,7 @@
             mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
             raycaster.setFromCamera(mouse, camera);
             const intersects = raycaster.intersectObjects(cubes.map(c => c.mesh));
-            cubes.forEach(cube => cube.isHovered = false); // Reset all
+            cubes.forEach(cube => cube.isHovered = false);
             if (intersects.length > 0) {
                 const hovered = cubes.find(c => c.mesh === intersects[0].object);
                 if (hovered) hovered.isHovered = true;
@@ -164,7 +174,7 @@
             }
         });
 
-        // Animation loop (rotation on hover)
+        // Animation loop
         function animate() {
             requestAnimationFrame(animate);
             cubes.forEach(cube => {
@@ -173,6 +183,7 @@
                     cube.mesh.rotation.y += 0.02;
                 }
             });
+            controls.update();
             renderer.render(scene, camera);
         }
         animate();
