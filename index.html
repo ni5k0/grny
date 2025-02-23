@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Three.js Time Series Cubes with Orbit Controls</title>
+    <title>Three.js Time Series Cubes with Orbit Controls and Stars</title>
     <style>
         body { margin: 0; overflow: hidden; }
         canvas { display: block; }
@@ -36,6 +36,23 @@
         controls.screenSpacePanning = false;
         controls.minDistance = 5;
         controls.maxDistance = 50;
+
+        // Stars setup
+        const starCount = 1000;
+        const starGeometry = new THREE.BufferGeometry();
+        const starPositions = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount * 3; i += 3) {
+            const theta = Math.random() * 2 * Math.PI;
+            const phi = Math.acos(2 * Math.random() - 1);
+            const radius = 200;
+            starPositions[i] = radius * Math.sin(phi) * Math.cos(theta);
+            starPositions[i + 1] = radius * Math.sin(phi) * Math.sin(theta);
+            starPositions[i + 2] = radius * Math.cos(phi);
+        }
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1 });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
 
         // Data
         const data = {
@@ -111,52 +128,42 @@
         const mouse = new THREE.Vector2();
         let hoveredCube = null;
 
-        // Green row (2025-02-05 holdings)
+        // Helper function to position cubes in a row of 7
+        function positionRow(items, yPos, bgColor, key1, key2) {
+            items.forEach((item, i) => {
+                if (i < 7) { // Limit to 7 cubes per row
+                    const x = i * 2 - 6; // Center 7 cubes: -6, -4, -2, 0, 2, 4, 6
+                    const geometry = new THREE.BoxGeometry(1, 1, 1);
+                    const text = `${item[key1]}\n${item[key2]}`;
+                    const texture = createTextTexture(text, bgColor);
+                    const material = new THREE.MeshBasicMaterial({ map: texture });
+                    const materials = [material, material, material, material, material, material];
+                    const cube = new THREE.Mesh(geometry, materials);
+                    cube.position.set(x, yPos, 0);
+                    scene.add(cube);
+                    cubes.push({ mesh: cube, isHovered: false });
+                }
+            });
+        }
+
+        // Green row (2025-02-05 holdings, top row)
         const greenHoldings = data.holdings.filter(h => h.date_added === "2025-02-05");
-        greenHoldings.forEach((holding, i) => {
-            const x = i * 2 - (greenHoldings.length - 1);
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const text = `${holding.ticker}\n${holding.date_added}`;
-            const texture = createTextTexture(text, '#00FF00');
-            const material = new THREE.MeshBasicMaterial({ map: texture });
-            const materials = [material, material, material, material, material, material];
-            const cube = new THREE.Mesh(geometry, materials);
-            cube.position.set(x, 4, 0);
-            scene.add(cube);
-            cubes.push({ mesh: cube, isHovered: false });
-        });
+        positionRow(greenHoldings, 6, '#00FF00', 'ticker', 'date_added');
 
-        // Yellow row (2024-11-20 holdings)
+        // Yellow rows (2024-11-20 holdings, split into 3 rows)
         const yellowHoldings = data.holdings.filter(h => h.date_added === "2024-11-20");
-        yellowHoldings.forEach((holding, i) => {
-            const x = i * 2 - (yellowHoldings.length - 1);
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const text = `${holding.ticker}\n${holding.date_added}`;
-            const texture = createTextTexture(text, '#FFFF00');
-            const material = new THREE.MeshBasicMaterial({ map: texture });
-            const materials = [material, material, material, material, material, material];
-            const cube = new THREE.Mesh(geometry, materials);
-            cube.position.set(x, 0, 0);
-            scene.add(cube);
-            cubes.push({ mesh: cube, isHovered: false });
-        });
+        const yellowRow1 = yellowHoldings.slice(0, 7);
+        const yellowRow2 = yellowHoldings.slice(7, 14);
+        const yellowRow3 = yellowHoldings.slice(14, 21);
+        positionRow(yellowRow1, 2, '#FFFF00', 'ticker', 'date_added'); // Row at y=2
+        positionRow(yellowRow2, 0, '#FFFF00', 'ticker', 'date_added'); // Row at y=0
+        positionRow(yellowRow3, -2, '#FFFF00', 'ticker', 'date_added'); // Row at y=-2
 
-        // Red row (removed)
-        data.removed.forEach((removed, i) => {
-            const x = i * 2 - (data.removed.length - 1);
-            const geometry = new THREE.BoxGeometry(1, 1, 1);
-            const text = `${removed.ticker}\n${removed.date_removed}`;
-            const texture = createTextTexture(text, '#FF0000');
-            const material = new THREE.MeshBasicMaterial({ map: texture });
-            const materials = [material, material, material, material, material, material];
-            const cube = new THREE.Mesh(geometry, materials);
-            cube.position.set(x, -4, 0);
-            scene.add(cube);
-            cubes.push({ mesh: cube, isHovered: false });
-        });
+        // Red row (removed, bottom row)
+        positionRow(data.removed, -6, '#FF0000', 'ticker', 'date_removed');
 
-        // Position camera
-        camera.position.set(0, 5, 20);
+        // Position camera (adjusted to see all 5 rows)
+        camera.position.set(0, 0, 20);
 
         // Mouse hover detection
         document.addEventListener('mousemove', (event) => {
@@ -177,6 +184,11 @@
         // Animation loop
         function animate() {
             requestAnimationFrame(animate);
+
+            // Animate stars (slow drift)
+            stars.rotation.y += 0.0002;
+            stars.rotation.x += 0.0001;
+
             cubes.forEach(cube => {
                 if (cube.isHovered) {
                     cube.mesh.rotation.x += 0.02;
